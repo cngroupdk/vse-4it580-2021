@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -6,10 +6,13 @@ import { useHistory } from 'react-router-dom';
 import { AvatarPhoto, Link, NavLink, Button } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
 import { route, PRACTICALS } from 'src/Routes';
+import { CounterContext } from 'src/utils/CounterContext';
 
 export function TopNavigation() {
   const { user, signout } = useAuth();
   const history = useHistory();
+
+  const { counter, increment } = useContext(CounterContext);
 
   return (
     <nav className="flex justify-between bb b--white-10 bg-dark-green white">
@@ -22,6 +25,9 @@ export function TopNavigation() {
         Quacker
       </Link>
       <div className="flex-grow flex items-center">
+        <div className="pa3" onClick={increment}>
+          Counter: {counter}
+        </div>
         <NavLink exact to={route.home()} className="pa3">
           Home
         </NavLink>

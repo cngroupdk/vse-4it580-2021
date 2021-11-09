@@ -14,11 +14,9 @@ const USER_DETAIL_QUERY = gql`
       userName
       profileImageUrl
       quacks {
-        id
         createdAt
         text
         user {
-          id
           name
           userName
           profileImageUrl
