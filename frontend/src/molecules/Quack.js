@@ -1,4 +1,5 @@
 import React from 'react';
+import { gql } from '@apollo/client';
 
 import { AvatarPhoto, Link, UserName, UserUserName } from 'src/atoms/';
 import { formatDate } from 'src/utils/date';
@@ -6,7 +7,7 @@ import { route } from 'src/Routes';
 
 export function Quack({ quack }) {
   const {
-    user: { name, userName, profileImageUrl },
+    user: { id, name, userName, profileImageUrl },
     text,
     createdAt,
   } = quack;
@@ -23,7 +24,8 @@ export function Quack({ quack }) {
       <div className="pl3 flex-auto">
         <div className="pb2">
           <Link to={linkToUser} className="black-90">
-            <UserName name={name} /> <UserUserName userName={userName} />
+            id: {id} <UserName name={name} />{' '}
+            <UserUserName userName={userName} />
           </Link>
           {' - '}
           <span className="f6 fw4 black-60">{formatDate(createdAt)}</span>
@@ -33,3 +35,17 @@ export function Quack({ quack }) {
     </article>
   );
 }
+Quack.fragments = {
+  quack: gql`
+    fragment Quack_quack on Quack {
+      text
+      createdAt
+      user {
+        id
+        name
+        userName
+        profileImageUrl
+      }
+    }
+  `,
+};

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { MainSection, Heading } from 'src/atoms';
+import { Button, MainSection, Heading } from 'src/atoms';
 import { TopNavigation } from 'src/organisms';
+import { CounterContext } from 'src/utils/CounterContext';
 
 export function AboutTemplate() {
+  const { counter, increment } = useContext(CounterContext);
+
   return (
     <>
       <TopNavigation />
       <MainSection>
         <Heading>About Quacker</Heading>
+        <p>
+          Counter: {counter}
+          <Button className="ml2" onClick={increment}>
+            +1
+          </Button>
+        </p>
         <p>
           Our company's mission is to collaboratively manufacture access to
           paradigms without losing sight of our original goal to interactively
